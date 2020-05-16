@@ -10,46 +10,13 @@
 <body> 
     {% load static %}
     <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <!-- <div class="row">
-            <div style="width: fit-content;" class="col-sm-3">
-                <img style="width: 206px; height: 152px;" id="image1">
-                <p>
-                    <label for="id_image">Image:</label>
-                    <input type="file" name="image" accept="image/*" required=""
-                        id="id_image">
-                </p>
-            </div>
-            <div style="width: fit-content;" class="col-sm-3">
-                <img style="width: 206px; height: 152px;" id="image2">
-                <p>
-                    <label for="id_image2">Image2:</label>
-                    <input type="file" name="image" accept="image/*" required="" id="id_image2">
-                </p>
-            </div>
-        </div> -->
+        {% csrf_token %}        
         {{ form.as_p }}
         <button type="submit">Combine</button>
+        {% if final_img == 1 %}
         <img src="{% static 'final.jpg' %}" alt="Output image"/>
+        {% endif %}
     </form>
-
-    <!-- <script>
-        var image1URL = 'https://cdn.britannica.com/86/170586-050-AB7FEFAE/Taj-Mahal-Agra-India.jpg';
-        document.getElementById('image1').src = image1URL;
-        var image2URL = 'https://hub.packtpub.com/wp-content/uploads/2018/03/Should-you-move-to-Python-3_image-696x464.png';
-        document.getElementById('image2').src = image2URL;
-        function getImage(event,imgNo) {            
-            if(event.target.files.length > 0)
-            {
-                const file = event.target.files[0];
-                const reader = new FileReader();
-                reader.addEventListener('load',() => {
-                    console.log(reader.result);
-                });
-                console.assert(readAsDataURL(file));
-            }
-        }
-    </script> -->
 </body>
 
 </html>

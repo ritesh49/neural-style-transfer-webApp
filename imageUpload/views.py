@@ -276,16 +276,18 @@ def finalRun():
 def uploadView(request):
     pass
 
-def index(request):
+def index(request):    
+    final_img = 0
     if request.method == 'POST': 
-        form = ImageUploadForm(request.POST, request.FILES) 
+        form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
             saved_data = form.save()                        
-            try:                
-                print('Images GEtting Deleted From Database')
-                remove_image = ImageUploadModel.objects.get(id = saved_data.pk)
+            try:
                 finalRun()
                 plot()
+                final_img = 1
+                print('Images GEtting Deleted From Database')
+                remove_image = ImageUploadModel.objects.get(id = saved_data.pk)                
                 if remove_image.image1 and remove_image.image2:                  
                   remove_image.image1.delete()
                   remove_image.image2.delete()
@@ -294,4 +296,4 @@ def index(request):
                 print('Model Query Doesnt Exist')
     else: 
         form = ImageUploadForm() 
-    return render(request, 'index.html', {'form' : form})
+    return render(request, 'index.html', {'form' : form,'final_img':final_img})
